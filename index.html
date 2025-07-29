@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special day in 2025</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        body {
+            background-color: #8DC2D4; 
+            font-family: 'Press Start 2P', cursive;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden; 
+        }
+
+        /* --- Keyframes for Cloud Animation --- */
+        @keyframes move-left {
+            0% {
+                transform: translateX(110vw); /* Start off-screen to the right */
+            }
+            100% {
+                transform: translateX(-250px); /* End off-screen to the left */
+            }
+        }
+
+        .cloud-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* Behind content but in front of body background */
+        }
+
+        .cloud {
+            position: absolute; 
+            image-rendering: pixelated;
+            animation-name: move-left;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+        
+        /* --- Individual Cloud Animation Settings --- */
+        #cloud1 { 
+            top: 5%; 
+            width: 200px;
+            animation-duration: 60s;
+            animation-delay: -10s;
+        }
+        #cloud2 { 
+            top: 15%; 
+            width: 250px;
+            animation-duration: 45s;
+            animation-delay: -25s;
+        }
+        #cloud4 { 
+            bottom: 20%; 
+            width: 220px; 
+            animation-duration: 50s; 
+            animation-delay: -5s;
+        }
+        #cloud5 { 
+            bottom: 15%; 
+            width: 180px; 
+            animation-duration: 65s;
+            animation-delay: -40s;
+        }
+
+        .container {
+            text-align: center;
+            position: relative; 
+            z-index: 2; /* Ensure this is on top of the clouds */
+        }
+
+        #eeyore {
+            width: 150px; 
+            image-rendering: pixelated;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            background-color: #BFE2EE;
+            border: 2px solid #333;
+            padding: 15px 25px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 4px 4px 0 #333;
+            transition: all 0.1s ease-in-out;
+        }
+
+        .button:active {
+            box-shadow: 1px 1px 0 #333;
+            transform: translate(3px, 3px);
+        }
+
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .popup-window {
+            width: 450px;
+            max-height: 80vh;
+            background-color: #BFE2EE;
+            border: 2px solid #333;
+            box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .title-bar {
+            background-color: #8DC2D4;
+            padding: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #333;
+            flex-shrink: 0;
+        }
+
+        .title-bar-text { font-size: 14px; color: #333; }
+        .title-bar-controls { display: flex; }
+
+        .control-button {
+            width: 16px; height: 16px; background-color: #e0e0e0;
+            border: 1px solid #333; margin-left: 3px; font-size: 12px;
+            line-height: 16px; text-align: center; cursor: pointer;
+        }
+
+        .popup-content {
+            padding: 10px 20px;
+            text-align: left;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+        .popup-content p { 
+            font-size: 14px; 
+            line-height: 1.5; 
+            color: #333; 
+            margin-bottom: 10px;
+        }
+        .popup-content ul {
+            list-style-type: square;
+            padding-left: 20px;
+            margin-top: 0;
+        }
+        .popup-content li {
+            font-size: 12px;
+            line-height: 1.6;
+            color: #333;
+            padding-bottom: 5px;
+        }
+        
+        /* --- NEW: Style for the image in the popup --- */
+        .popup-image {
+            max-width: 100%; /* Ensure it fits the container */
+            margin-top: 15px; /* Space from the text above */
+            display: block; /* Center it if needed */
+            margin-left: auto;
+            margin-right: auto;
+            image-rendering: pixelated; /* Keep the pixel art style */
+            border: 2px solid #333; /* Optional border */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="cloud-container">
+        <img src="cloud.png" class="cloud" id="cloud1">
+        <img src="cloud.png" class="cloud" id="cloud2">
+        <img src="cloud.png" class="cloud" id="cloud4">
+        <img src="cloud.png" class="cloud" id="cloud5">
+    </div>
+
+    <div class="container" id="start-view">
+        <img id="eeyore" src="eeyore3.png" alt="Pixel art of Eeyore">
+        <br>
+        <button class="button" id="open-popup-btn">Click me!</button>
+    </div>
+
+    <div class="popup-overlay" id="popup">
+        <div class="popup-window">
+            <div class="title-bar">
+                <span class="title-bar-text">For my favorite shark <3</span>
+                <div class="title-bar-controls">
+                    <div class="control-button" style="line-height: 14px;">_</div>
+                    <div class="control-button">❐</div>
+                    <div class="control-button" id="close-popup-btn">X</div>
+                </div>
+            </div>
+            <div class="popup-content">
+                <p>Happy 2nd anniversary! I love you so much! Here are a list of things I love about you:</p>
+                <ul>
+                    <li>Sangat caring sekali</li>
+                    <li>Bersifat keibuan</li>
+                    <li>Gemesh setiap kali denger suara2 javier</li>
+                    <li>Pelepas stress kalo lagi yapping di discord pas nemenin aku kerja</li>
+                    <li>Gemesh2 tp ngeselin dikit tiap kali gabisa terima klo ga inget sesuatu padahal itu suatu hal yang gampang diinget buat dirinya (ex: duh si itu namanya siapa si duhhh kok lupa sih, ga bisa ga bisa aku gabisa kalo begini, langsung searching di tiktok)</li>
+                    <li>Gemesh suara bangun tidur nya</li>
+                    <li>Unik kebiasaan ngomong "kami" bukan "kita"</li>
+                    <li>Bikin senang bisa discordan tiap hari</li>
+                    <li>Sangat bertekad klo dah ada target</li>
+                    <li>Jago dance</li>
+                    <li>Bikin senang setiap kali ada physical touch</li>
+                    <li>Enak ngeboncenginnya di motor</li>
+                    <li>Gapapa klo kesana kemari pake motor klo emg lg gabisa pake mobil</li>
+                    <li>Jago masak</li>
+                    <li>Jago bikin mie</li>
+                    <li>Sering muncul di mimpi</li>
+                    <li>Cantikkkkk</li>
+                    <li>Slim</li>
+                    <li>Tinggi nya pas</li>
+                    <li>Kulit putih mulus</li>
+                    <li>Jago nyanyi</li>
+                    <li>Suka melayani</li>
+                    <li>Jago gambar</li>
+                    <li>Gambar2 gemeshin</li>
+                    <li>Suka eeyore</li>
+                    <li>Berlembut hati, apalagi sama binatang</li>
+                    <li>Penuh belas kasihan</li>
+                    <li>Nangisin binatang mulu karena kasian</li>
+                    <li>Gemesh bobo nya</li>
+                    <li>Bertanggung jawab</li>
+                    <li>Suka disney</li>
+                    <li>Suka kasih effort untuk cari tau tentang hal2 yg ku suka</li>
+                    <li>Cantikkk bgtt</li>
+                    <li>Ex-kominfo</li>
+                    <li>Ex-mandarin oriental</li>
+                    <li>Bntr lg ex-unas</li>
+                    <li>Sayang keluarga</li>
+                    <li>Berhasil diet</li>
+                    <li>Berhasil olahraga</li>
+                    <li>Sayang teman</li>
+                    <li>Sayang pacar</li>
+                    <li>Suka sushi</li>
+                    <li>Bikin aku suka sushi</li>
+                    <li>Mau nemenin ke jepang</li>
+                    <li>Suka anjing dan binatang</li>
+                    <li>Ga suka kecoa</li>
+                    <li>MBTI INFP</li>
+                    <li>Penakut tp suka nonton horror, tp skrg dah ga begitu karena di rmh dah gaada ci mey</li>
+                    <li>Jago makan pedes</li>
+                    <li>Sama2 alergi debu</li>
+                    <li>Ga suka bolong bolongan</li>
+                    <li>Mau liat aurora</li>
+                    <li>Suka coklat</li>
+                    <li>Ingetan nya jago</li>
+                    <li>Suka bts</li>
+                    <li>Sangat supportive sama aku</li>
+                </ul>
+                <p style="text-align: center; font-weight: bold; margin-top: 15px;">I love love love love you!!!</p>
+                
+                <!-- NEW: Image added at the end of the content -->
+                <!-- IMPORTANT: Change "your_image_here.png" to the actual name of your image file -->
+                <img src="eeyore2.png" alt="A special photo" class="popup-image">
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const openBtn = document.getElementById('open-popup-btn');
+        const closeBtn = document.getElementById('close-popup-btn');
+        const popup = document.getElementById('popup');
+        
+        openBtn.addEventListener('click', () => { popup.style.display = 'flex'; });
+        closeBtn.addEventListener('click', () => { popup.style.display = 'none'; });
+        popup.addEventListener('click', (event) => {
+            if (event.target === popup) {
+                popup.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
